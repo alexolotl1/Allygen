@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMZJ6W9le39t2JRBX-5jm0IRykjStBMc&libraries=places&callback=initMap">
+  </script>
   </head>
   <body>
     <div id="header">
         <div id="logo"> Allygen </div>
         <div id="search-bar">
-            <input type="text" placeholder="Search...">
-            <button>Search</button>
+            <input type="text" id="search-input" placeholder="Search...">
+            <button onclick="searchRestaurants()">Search</button>
         </div>
     </div>
   <div id="container">
@@ -61,35 +62,54 @@
       <div id="map">map</div>
     </div>
     <script>
-      // Initialize map 
-      var map = L.map('map').setView([40.7128, -74.0060], 13); // NYC
+      let map;
+      let service;
+      let markers=[];
 
-      // Add OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-      }).addTo(map);
-
-      // Foursquare API key
-      const FOURSQUARE_API_KEY = 'SNKD5TICU3V4TL3GMB4LA53DTTT1AAKF4JXSMCSRDZPDJTLE';
-
-      // Fetch restaurants from Foursquare
-      fetch('https://api.foursquare.com/v3/places/search?query=restaurant&ll=40.7128,-74.0060&radius=1000&limit=30', {
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'SNKD5TICU3V4TL3GMB4LA53DTTT1AAKF4JXSMCSRDZPDJTLE'
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        data.results.forEach(place => {
-          const coords = [place.geocodes.main.latitude, place.geocodes.main.longitude];
-          L.marker(coords)
-            .addTo(map)
-            .bindPopup(`<b>${place.name}</b><br/>${place.location.address || ''}`);
+      function initMap() {
+        const nyc = new google.maps.LatLng(40.7128, -74.0060);
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: nyc,
+          zoom: 13,
         });
-      })
-      .catch(err => console.error(err));
+        
+        service = new google.maps.places.PlacesService(map);
+        searchRestaurants(); // load initial restaurants
+      }
+      function clearMarkers() {
+          markers.forEach(marker => marker.setMap(null));
+          markers = [];
+      }
+      function searchRestaurants() {
+        clearMarkers();
+
+        const query = document.getElementById("search-input").value || "restaurant";
+
+        const request = {
+          location: map.getCenter(),
+          radius: 1000,
+          keyword: query,
+          type: ["restaurant"]
+        };
+        service.nearbySearch(request, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            results.forEach(place => {
+              const marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location,
+                title: place.name
+              });
+              const infowindow = new google.maps.InfoWindow({
+                content: `<b>${place.name}</b><br>${place.vicinity}`
+              });
+              marker.addListener("click", () => {
+                infowindow.open(map, marker);
+              });
+              markers.push(marker);
+            });
+          }
+        });
+      }
     </script>
   </body>
 </html>
