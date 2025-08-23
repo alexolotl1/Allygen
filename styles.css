@@ -61,11 +61,12 @@ body {
 }
 
 #sidebar {
-  width: 40%;
+  width: 15%;
   border: 2px solid #444;
   background-color: #9AB7CD;
   overflow-y: auto;
   box-sizing: border-box; 
+  padding: 10px;
 }
 
 #map {
@@ -73,6 +74,7 @@ body {
   border: 2px solid #000;
   box-sizing: border-box;
 }
+
 .filter-options {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -106,4 +108,82 @@ body {
   font-weight: bold;
   color: white;
   margin-bottom: 10px;  /* space between title and filters */
+}
+#restaurants {
+  width: 20%;
+  border: 2px solid #aaa;
+  background-color: #f8f8f8;
+  overflow-y: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.restaurant-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+
+.restaurant-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.restaurant-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.restaurant-rating {
+  color: #f39c12; /* gold stars */
+}
+
+.restaurant-location {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.25rem 0;
+}
+
+.restaurant-tags {
+  margin: 0.5rem 0;
+}
+
+.tag {
+  display: inline-block;
+  background: #e8e8e8;
+  border-radius: 8px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  margin-right: 0.4rem;
+}
+
+.tag.vegan { background: #a7e9af; }
+.tag.gluten-free { background: #ffe29a; }
+.tag.nut-free { background: #ffb6b6; }
+
+.restaurant-review {
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: auto;
+  font-style: italic;
 }

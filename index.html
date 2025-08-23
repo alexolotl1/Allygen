@@ -14,26 +14,49 @@
             <button>Search</button>
         </div>
     </div>
-    <div id="container">
-      <div id="sidebar"> 
-        <div class="filter-group">
-            <h3 class="filter-title">Categories:</h3>
-                <div class="filter-options">
-                <label><input type="checkbox" name="category" value="non-gmo"> NON-GMO</label>
-                <label><input type="checkbox" name="category" value="vegan"> Vegan</label>
-                <label><input type="checkbox" name="category" value="vegetarian"> Vegetarian</label>
-            </div>
+  <div id="container">
+  <!-- Sidebar filters -->
+  <div id="sidebar"> 
+    <div class="filter-group">
+      <h3 class="filter-title">Categories:</h3>
+      <div class="filter-options">
+        <label><input type="checkbox" name="category" value="non-gmo"> NON-GMO</label>
+        <label><input type="checkbox" name="category" value="vegan"> Vegan</label>
+        <label><input type="checkbox" name="category" value="vegetarian"> Vegetarian</label>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h3 class="filter-title">Allergies:</h3>
+      <div class="filter-options">
+        <label><input type="checkbox" name="allergy" value="peanuts"> Peanuts</label>
+        <label><input type="checkbox" name="allergy" value="nuts"> Nuts</label>
+        <label><input type="checkbox" name="allergy" value="dairy"> Dairy/Gluten</label>
+        <label><input type="checkbox" name="allergy" value="eggs"> Eggs</label>
+        <label><input type="checkbox" name="allergy" value="milk"> Milk</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Restaurant list column -->
+  <div id="restaurants">
+    <div class="restaurant-card">
+      <img src="restaurant.jpg" alt="Restaurant photo" class="restaurant-image">
+      <div class="restaurant-info">
+        <div class="restaurant-header">
+          <h2 class="restaurant-name">Green Garden</h2>
+          <div class="restaurant-rating">⭐⭐⭐⭐☆</div>
         </div>
-        <div class="filter-group">
-            <h3 class="filter-title">Allergies:</h3>
-                <div class="filter-options">
-                    <label><input type="checkbox" name="allergy" value="peanuts"> Peanuts</label>
-                    <label><input type="checkbox" name="allergy" value="nuts"> Nuts</label>
-                    <label><input type="checkbox" name="allergy" value="dairy"> Dairy/Gluten</label>
-                    <label><input type="checkbox" name="allergy" value="eggs"> Eggs</label>
-                    <label><input type="checkbox" name="allergy" value="milk"> Milk</label>
-                </div>
+        <p class="restaurant-location">Brooklyn, NY</p>
+        <div class="restaurant-tags">
+          <span class="tag vegan">Vegan</span>
+          <span class="tag gluten-free">Gluten-Free</span>
+          <span class="tag nut-free">Nut-Free</span>
         </div>
+        <p class="restaurant-review">
+          “Amazing fresh food, super friendly staff, and great atmosphere!”
+        </p>
+      </div>
+    </div>
     </div>
       <div id="map">map</div>
     </div>
