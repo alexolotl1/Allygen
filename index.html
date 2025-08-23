@@ -37,5 +37,36 @@
     </div>
       <div id="map">map</div>
     </div>
+    <script>
+      // Initialize map 
+      var map = L.map('map').setView([40.7128, -74.0060], 13); // NYC
+
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(map);
+
+      // Foursquare API key
+      const FOURSQUARE_API_KEY = 'SNKD5TICU3V4TL3GMB4LA53DTTT1AAKF4JXSMCSRDZPDJTLE';
+
+      // Fetch restaurants from Foursquare
+      fetch('https://api.foursquare.com/v3/places/search?query=restaurant&ll=40.7128,-74.0060&radius=1000&limit=30', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'SNKD5TICU3V4TL3GMB4LA53DTTT1AAKF4JXSMCSRDZPDJTLE'
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        data.results.forEach(place => {
+          const coords = [place.geocodes.main.latitude, place.geocodes.main.longitude];
+          L.marker(coords)
+            .addTo(map)
+            .bindPopup(`<b>${place.name}</b><br/>${place.location.address || ''}`);
+        });
+      })
+      .catch(err => console.error(err));
+    </script>
   </body>
 </html>
